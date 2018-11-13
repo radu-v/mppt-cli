@@ -43,6 +43,11 @@
         {
             return new ServiceCollection()
                 .AddSingleton<SerialPort>()
+                #if DEBUG1
+                .AddSingleton<ISerialPortWrapper, MockSerialPortWrapper>()
+                #else
+                .AddSingleton<ISerialPortWrapper, SerialPortWrapper>()
+                #endif
                 .AddSingleton<ProtocolController>()
                 .AddSingleton<ConsoleApp>()
                 .AddSingleton(_ => Log.Logger)

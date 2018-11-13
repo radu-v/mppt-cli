@@ -16,7 +16,7 @@
         readonly ILogger logger;
         bool responding;
 
-        public ProtocolController(SerialPort serialPort, ILogger logger)
+        public ProtocolController(ISerialPortWrapper serialPort, ILogger logger)
         {
             CommPort = serialPort;
 
@@ -193,7 +193,7 @@
                     CommPort.Close();
                 }
 
-                Console.Write($"Protocol.Open:{GetCommPortSettings()}");
+                logger.Verbose($"Protocol.Open:{GetCommPortSettings()}");
                 Trace.Assert(!CommPort.IsOpen);
                 CommPort.Open();
                 logger.Verbose($"- {(CommPort.IsOpen ? "OPEN" : "NOT OPENED")}");
@@ -201,8 +201,7 @@
             }
             catch (Exception exception)
             {
-                var message = $"Could Not Open {GetCommPortSettings()} \n{exception.Message}\nPlease Check Comm Settings.";
-                logger.Verbose(message);
+                logger.Verbose($"Could Not Open {GetCommPortSettings()} \n{exception.Message}\nPlease Check Comm Settings.");
             }
 
             return CommPort.IsOpen;
@@ -361,7 +360,7 @@
             }
         }
 
-        public SerialPort CommPort { get; }
+        public ISerialPortWrapper CommPort { get; }
 
         public List<McmParameter> ParametersList { get; set; } = new List<McmParameter>();
     }
