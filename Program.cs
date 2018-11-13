@@ -9,7 +9,7 @@
     {
         static int Main(string[] args)
         {
-            const string LogFormat = "{Timestamp:yyyy MM dd HH:mm:ss};{Level};{Message};{Exception}";
+            const string LogFormat = "{Timestamp:yyyy MM dd HH:mm:ss};{Level};{Message};{Exception}\n";
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.RollingFile("mppt-cli.log", outputTemplate: LogFormat, restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)

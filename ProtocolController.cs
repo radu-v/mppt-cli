@@ -201,7 +201,7 @@
             }
             catch (Exception exception)
             {
-                logger.Verbose($"Could Not Open {GetCommPortSettings()} \n{exception.Message}\nPlease Check Comm Settings.");
+                logger.Error($"Could Not Open {GetCommPortSettings()} \n{exception.Message}\nPlease Check Comm Settings.");
             }
 
             return CommPort.IsOpen;
