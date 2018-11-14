@@ -27,7 +27,7 @@
             try
             {
                 csvFile = File.CreateText($"mppt-cli_{DateTime.Now:yyyyMMdd-HHmmss}.csv");
-                await csvFile.WriteLineAsync("Timestamp;Level;Volts;Amps;Load Amps;Battery;Load;Temperature;AHr Run Timer;Alarm").ConfigureAwait(false);
+                await csvFile.WriteLineAsync("Timestamp;Volts;Amps;Load Amps;Battery (AHr);Load (AHr);Temperature (C);AHr Run Timer;Alarm").ConfigureAwait(false);
 
                 protocolController.Open();
 
@@ -41,15 +41,15 @@
                     {
                         if (ReadAll(out var numArray))
                         {
-                            var voltage = (numArray[1] / 10.0d).ToString("f1", CultureInfo.CurrentCulture) + " V";
-                            var current = (numArray[3] / 10.0d).ToString("f1", CultureInfo.CurrentCulture) + " A";
-                            var load = (numArray[4] / 10.0d).ToString("f1", CultureInfo.CurrentCulture) + " A";
-                            var ahBattery = numArray[6].ToString("f1", CultureInfo.CurrentCulture) + " AHr";
-                            var ahLoad = numArray[5].ToString("f1", CultureInfo.CurrentCulture) + " AHr";
-                            var temperature = numArray[0].ToString("f0", CultureInfo.CurrentCulture) + " \x00b0C";
+                            var voltage = (numArray[1] / 10.0d).ToString("f1", CultureInfo.CurrentCulture);
+                            var current = (numArray[3] / 10.0d).ToString("f1", CultureInfo.CurrentCulture);
+                            var load = (numArray[4] / 10.0d).ToString("f1", CultureInfo.CurrentCulture);
+                            var ahBattery = numArray[6].ToString("f1", CultureInfo.CurrentCulture);
+                            var ahLoad = numArray[5].ToString("f1", CultureInfo.CurrentCulture);
+                            var temperature = numArray[0].ToString("f0", CultureInfo.CurrentCulture);
 
-                            var sb = new StringBuilder($"Volts: {voltage}; Amps: {current}; Load Amps: {load}; Battery: {ahBattery}; Load: {ahLoad}; Temperature: {temperature}");
-                            await csvFile.WriteAsync($"{voltage};{current};{load};{ahBattery};{ahLoad};{temperature};").ConfigureAwait(false);
+                            var sb = new StringBuilder($"Volts: {voltage} V; Amps: {current} A; Load Amps: {load} A; Battery: {ahBattery} AHr; Load: {ahLoad} AHr; Temperature: {temperature} \x00b0C");
+                            await csvFile.WriteAsync($"{DateTime.Now:G};{voltage};{current};{load};{ahBattery};{ahLoad};{temperature};").ConfigureAwait(false);
 
                             var ahtParam = protocolController.GetParameter("AHT");
                             if (protocolController.ReadParameter(ahtParam))

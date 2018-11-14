@@ -140,7 +140,9 @@ namespace mppt_cli
             var eqPos = span.IndexOf('=');
 
             if (eqPos < 0)
+            {
                 return (input.Trim(), null);
+            }
 
             var cmd = span.Slice(0, eqPos).Trim();
             var value = span.Slice(eqPos + 1).Trim();
