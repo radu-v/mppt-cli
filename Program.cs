@@ -9,10 +9,10 @@
     {
         static int Main(string[] args)
         {
-            const string LogFormat = "{Timestamp:yyyy MM dd HH:mm:ss};{Level};{Message};{Exception}\n";
+            const string LogFormat = "{Timestamp:yyyy MM dd HH:mm:ss};{Level};{Message};{Exception}";
 
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.RollingFile("mppt-cli.log", outputTemplate: LogFormat, restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
+                .WriteTo.RollingFile("mppt-cli.log", /*outputTemplate: LogFormat,*/ restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
                 .WriteTo.Console()
                 .CreateLogger();
 
@@ -43,7 +43,7 @@
         {
             return new ServiceCollection()
                 .AddSingleton<SerialPort>()
-                #if DEBUG1
+                #if DEBUG
                 .AddSingleton<ISerialPortWrapper, MockSerialPortWrapper>()
                 #else
                 .AddSingleton<ISerialPortWrapper, SerialPortWrapper>()

@@ -79,8 +79,6 @@
 
                             await csvFile.FlushAsync().ConfigureAwait(false);
 
-                            sb.AppendLine();
-
                             logger.Information(sb.ToString());
                         }
                     }
