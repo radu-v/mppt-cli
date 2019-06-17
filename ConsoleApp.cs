@@ -107,13 +107,13 @@
                 values = new double[strArray.Length];
                 Trace.Assert(strArray.Length == 7);
 
-                double.TryParse(strArray[3]?.Trim() ?? "0", out values[0]);
-                double.TryParse(strArray[0]?.Trim() ?? "0", out values[1]);
-                double.TryParse(strArray[4]?.Trim() ?? "0", out values[2]);
-                double.TryParse(strArray[1]?.Trim() ?? "0", out values[3]);
-                double.TryParse(strArray[2]?.Trim() ?? "0", out values[4]);
-                double.TryParse(strArray[5]?.Trim() ?? "0", out values[5]);
-                double.TryParse(strArray[6]?.Trim() ?? "0", out values[6]);
+                if (!double.TryParse(strArray[3]?.Trim() ?? "0", out values[0])) { values[0] = 0; }
+                if (!double.TryParse(strArray[0]?.Trim() ?? "0", out values[1])) { values[1] = 0; }
+                if (!double.TryParse(strArray[4]?.Trim() ?? "0", out values[2])) { values[2] = 0; }
+                if (!double.TryParse(strArray[1]?.Trim() ?? "0", out values[3])) { values[3] = 0; }
+                if (!double.TryParse(strArray[2]?.Trim() ?? "0", out values[4])) { values[4] = 0; }
+                if (!double.TryParse(strArray[5]?.Trim() ?? "0", out values[5])) { values[5] = 0; }
+                if (!double.TryParse(strArray[6]?.Trim() ?? "0", out values[6])) { values[6] = 0; }
             }
 
             return flag;

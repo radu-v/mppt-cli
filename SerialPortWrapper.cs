@@ -21,20 +21,20 @@
 
         public event SerialDataReceivedEventHandler DataReceived
         {
-            add { serialPort.DataReceived += value; }
-            remove { serialPort.DataReceived -= value; }
+            add => serialPort.DataReceived += value;
+            remove => serialPort.DataReceived -= value;
         }
 
         public event SerialErrorReceivedEventHandler ErrorReceived
         {
-            add { serialPort.ErrorReceived += value; }
-            remove { serialPort.ErrorReceived -= value; }
+            add => serialPort.ErrorReceived += value;
+            remove => serialPort.ErrorReceived -= value;
         }
 
         public event SerialPinChangedEventHandler PinChanged
         {
-            add { serialPort.PinChanged += value; }
-            remove { serialPort.PinChanged -= value; }
+            add => serialPort.PinChanged += value;
+            remove => serialPort.PinChanged -= value;
         }
 
         public Stream BaseStream => serialPort.BaseStream;
