@@ -1,4 +1,4 @@
-﻿namespace mppt_cli
+﻿namespace MpptCli
 {
     using System;
     using System.Diagnostics;

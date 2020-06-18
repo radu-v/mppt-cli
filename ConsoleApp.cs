@@ -1,4 +1,4 @@
-﻿namespace mppt_cli
+﻿namespace MpptCli
 {
     using System;
     using System.Diagnostics;
@@ -19,7 +19,7 @@
             this.logger = logger;
         }
 
-        async Task<int> OnExecuteAsync()
+        public async Task<int> OnExecuteAsync()
         {
             logger.Verbose($"Polling controller data from serial port {protocolController.CommPort.PortName}. Press any key to exit.");
 

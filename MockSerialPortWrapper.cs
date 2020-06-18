@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace mppt_cli
+namespace MpptCli
 {
    using System.Collections.Generic;
    using System.IO;
