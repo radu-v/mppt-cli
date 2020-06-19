@@ -1,0 +1,8 @@
+﻿[*.cs]
+
+# SA1117: Parameters must be on same line or separate lines
+dotnet_diagnostic.SA1117.severity = none
+dotnet_diagnostic.SA1202.severity = none
+dotnet_diagnostic.SA1600.severity = none
+dotnet_diagnostic.SA1633.severity = none
+dotnet_diagnostic.SA1652.severity = none

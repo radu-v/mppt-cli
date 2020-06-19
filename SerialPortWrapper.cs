@@ -9,11 +9,6 @@
     {
         readonly SerialPort serialPort;
 
-        public SerialPortWrapper()
-        {
-            serialPort = new SerialPort();
-        }
-
         public SerialPortWrapper(SerialPort serialPort)
         {
             this.serialPort = serialPort;
@@ -136,6 +131,7 @@
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

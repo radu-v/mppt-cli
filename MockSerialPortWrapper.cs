@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace MpptCli
+﻿namespace MpptCli
 {
-   using System.Collections.Generic;
+   using System;
    using System.IO;
    using System.IO.Ports;
    using System.Text;
@@ -10,10 +8,6 @@ namespace MpptCli
    public class MockSerialPortWrapper : ISerialPortWrapper
    {
       string currentBuffer = string.Empty;
-      bool echo;
-
-      readonly List<string> cmds = new List<string>();
-      readonly Dictionary<string, string> settings = new Dictionary<string, string>();
 
       public event SerialDataReceivedEventHandler DataReceived;
 
@@ -118,7 +112,6 @@ namespace MpptCli
 
          if (cmd.Equals("ECHO", StringComparison.OrdinalIgnoreCase))
          {
-            echo = value.Equals("ON", StringComparison.OrdinalIgnoreCase);
          }
          else if (cmd.Equals("VER?", StringComparison.OrdinalIgnoreCase))
          {
@@ -128,8 +121,6 @@ namespace MpptCli
          {
             currentBuffer += "\r\nOK:READALL=124,-300,320,18,666,-3,2\r\n";
          }
-
-         //settings[cmd] = value;
       }
 
       static (string Cmd, string Value) ParseCommand(string input)

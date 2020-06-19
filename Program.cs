@@ -7,18 +7,16 @@
 
    static class Program
    {
-      static async Task<int> Main(string[] args)
+      static async Task<int> Main()
       {
-         const string LogFormat = "{Timestamp:yyyy MM dd HH:mm:ss};{Level};{Message};{Exception}";
-
          Log.Logger = new LoggerConfiguration()
-             .WriteTo.RollingFile("mppt-cli.log", /*outputTemplate: LogFormat,*/ restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
+             .WriteTo.RollingFile("mppt-cli.log", Serilog.Events.LogEventLevel.Information)
              .WriteTo.Console()
              .CreateLogger();
 
          var serviceProvider = ConfigureServices();
-
-         var app = new ConsoleApp(serviceProvider.GetRequiredService<ProtocolController>(), Log.Logger);
+         var protocolController = await ProtocolController.CreateAsync(serviceProvider.GetRequiredService<ISerialPortWrapper>(), Log.Logger);
+         var app = new ConsoleApp(protocolController, Log.Logger);
 
          return await app.OnExecuteAsync();
       }
@@ -32,7 +30,6 @@
 #else
                 .AddSingleton<ISerialPortWrapper, SerialPortWrapper>()
 #endif
-                .AddSingleton<ProtocolController>()
              .AddSingleton<ConsoleApp>()
              .AddSingleton(_ => Log.Logger)
              .BuildServiceProvider();
